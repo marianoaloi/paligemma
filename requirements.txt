@@ -1,11 +1,11 @@
-google-colab
+# google-colab
 jax
 numpy
-
 IPython
-
 Pillow
 overrides
 einops~=0.7
 sentencepiece
 ml_collections
+jaxlib 
+flax
