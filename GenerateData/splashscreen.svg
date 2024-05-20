@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="300"
+   height="300"
+   viewBox="0 0 300 300.00001"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (9b9bdc1480, 2023-11-25, custom)"
+   sodipodi:docname="splashscreen.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.6890572"
+     inkscape:cx="396.67099"
+     inkscape:cy="419.16875"
+     inkscape:window-width="3770"
+     inkscape:window-height="2096"
+     inkscape:window-x="70"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g11"
+     showgrid="false" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient1"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#0002b3;stop-opacity:1;"
+         offset="0.00049031"
+         id="stop1" />
+      <stop
+         style="stop-color:#d6bf00;stop-opacity:1;"
+         offset="0.73808312"
+         id="stop3" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1"
+       id="radialGradient2"
+       cx="150.52942"
+       cy="135.41633"
+       fx="150.52942"
+       fy="135.41633"
+       r="147.93152"
+       gradientTransform="matrix(1,0,0,0.95134729,0,6.588372)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <path
+       sodipodi:type="star"
+       style="fill:url(#radialGradient2);fill-rule:evenodd;stroke:none;stroke-width:1.75748;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+       id="path1"
+       inkscape:flatsided="true"
+       sodipodi:sides="5"
+       sodipodi:cx="150.52942"
+       sodipodi:cy="150.18126"
+       sodipodi:r1="154.62046"
+       sodipodi:r2="125.09059"
+       sodipodi:arg1="-1.5707963"
+       sodipodi:arg2="-0.9424778"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 150.52943,-4.4391938 147.05278,106.8401138 -56.16917,172.87092 -181.767245,0 L 3.476631,102.40091 Z"
+       inkscape:transform-center-y="-14.76494"
+       transform="translate(0,12)" />
+    <g
+       id="g11"
+       style="stroke-width:3.64724415;stroke-dasharray:none;paint-order:markers stroke fill">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:#ff0808;stroke-width:3.64724;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         x="44.888458"
+         y="112.90229"
+         id="text1"
+         transform="rotate(-0.53945183)"><tspan
+           sodipodi:role="line"
+           x="44.888458"
+           y="112.90229"
+           id="tspan3">PaliGemma</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:#ff0808;stroke-width:3.64724;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         x="101.08424"
+         y="180.09732"
+         id="text9"><tspan
+           sodipodi:role="line"
+           x="101.08424"
+           y="180.09732"
+           id="tspan9">Data</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:#ff0808;stroke-width:3.64724;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         x="59.151649"
+         y="147.88171"
+         id="text6"><tspan
+           sodipodi:role="line"
+           x="59.151649"
+           y="147.88171"
+           id="tspan6">Generate</tspan></text>
+    </g>
+  </g>
+</svg>
