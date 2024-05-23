@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>images/icon.jpeg</normaloff>images/icon.jpeg</iconset>
+    <normaloff>../../../../../home/maloi/.designer/backup/images/icon.jpeg</normaloff>../../../../../home/maloi/.designer/backup/images/icon.jpeg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -102,8 +102,15 @@
     <addaction name="actionGenerate_file_to_Paligemma"/>
     <addaction name="actionRead_a_Paligemma_File"/>
    </widget>
+   <widget class="QMenu" name="menuServer">
+    <property name="title">
+     <string>Server</string>
+    </property>
+    <addaction name="actionStart_WebSocket"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuControl"/>
+   <addaction name="menuServer"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSave">
@@ -132,6 +139,11 @@
   <action name="actionRead_a_Paligemma_File">
    <property name="text">
     <string>Read a Paligemma File</string>
+   </property>
+  </action>
+  <action name="actionStart_WebSocket">
+   <property name="text">
+    <string>Start WebSocket</string>
    </property>
   </action>
  </widget>

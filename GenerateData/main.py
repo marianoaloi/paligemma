@@ -1,3 +1,4 @@
+import asyncio
 import getopt
 import json
 import mimetypes
@@ -10,6 +11,8 @@ import traceback
 
 from PIL import Image,ImageFile
 import numpy as np
+
+from flask.websocked import WebSocketPaligemma
 os.environ['QT_IMAGEIO_MAXALLOC'] = "0"
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -27,8 +30,9 @@ from mediamaloipackage.HelpComponent import HelpComponent
 
 from mediamaloipackage.ValidateFile import ValidateFile
 
+from entity.ItemList import ItemList,SizeMaxMozaic
+
 FILE_DEFAULT="data.jsonl"
-SizeMaxMozaic=300
 
 class PlainTextEditDelegate(QStyledItemDelegate):
     def __init__(self, parent=None,saveMethod=None):
@@ -66,38 +70,7 @@ class HtmlDelegate(QStyledItemDelegate):
         label.render(painter)
         painter.restore()   
 
-class ItemList:
-    
-    
-    
-    def __init__(self,dir:str=None,fileName:str=None,description:str=None) -> None:
-        self.pathPhoto:str=os.path.join(dir,fileName)
-        self.fileName:str=fileName
-        self.description:str=description
-        self.image = None
-        try:
-            self.image = self.getFileSystemImage(self.pathPhoto)
-        except Exception as e:
-                traceback.print_exception(e)
-                
-    def getFileSystemImage(self,path)->QImage:
 
-        
-        reader = QImageReader(path)
-        
-        # Check if the image format is supported
-        if not reader.canRead():
-            raise RuntimeError(f"Error: Unsupported image format for '{path}'.")
-
-        # Read the image
-        imageQ = reader.read()
-
-        # Check for errors during reading
-        if imageQ.isNull():
-            error_str = reader.errorString()
-            raise RuntimeError(f"Error reading image: {error_str}")
-        imageQ=imageQ.scaled(SizeMaxMozaic,SizeMaxMozaic)
-        return imageQ
 
 class GeneratePaligemmaData(QMainWindow):
     def __init__(self,**kwargs):
@@ -111,8 +84,10 @@ class GeneratePaligemmaData(QMainWindow):
         # self.tableData.cellChanged.connect(self.saveFile)
         
         self.directory = None
-        self.images:List[ItemList]=[]
+        self.images:dict={}
         
+        
+        self.actionStart_WebSocket   .triggered.connect(lambda : asyncio.run(self.websocket()))
         
     def init(self,progressBarSplash):
         def progressBar(v):
@@ -141,9 +116,12 @@ class GeneratePaligemmaData(QMainWindow):
         
         if(self.directory):
             self.openDirectory(progressBar)
-            
+                    
+    async def websocket(self)    :
+        
+        WebSocketPaligemma(self.images).main()
     def openDirectory(self,progressBar=None):
-        self.images=[]
+        self.images={}
         
         self.show()
                     
@@ -167,7 +145,9 @@ class GeneratePaligemmaData(QMainWindow):
                     for index, line in enumerate(lines):
                         obj=json.loads(line)
                         paths.add(obj["image"])
-                        yield ItemList(self.directory,obj["image"],obj["suffix"])
+                        image = ItemList(self.directory,obj["image"],obj["suffix"])
+                        self.images[image.pathPhoto]=image
+                        yield image
                         progressBar(int(index*bias))
                         self.total+=1
                         filled+=1
@@ -183,7 +163,9 @@ class GeneratePaligemmaData(QMainWindow):
             bias=100/len(lines)
             for index, line in enumerate(lines):
                 
-                    yield ItemList(os.path.dirname(line),os.path.basename(line),"")
+                    image = ItemList(os.path.dirname(line),os.path.basename(line),"")
+                    self.images[image.pathPhoto]=image
+                    yield image
                     progressBar(int(index*bias))
                     self.total+=1
                     empty+=1
