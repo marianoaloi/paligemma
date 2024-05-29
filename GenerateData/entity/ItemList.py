@@ -1,9 +1,12 @@
 
+import hashlib
 import os
 import traceback
 from PyQt5.QtGui import QImage,QImageReader
 
 SizeMaxMozaic=300
+
+FILE_DEFAULT="data.jsonl"
 class ItemList:
     
     
@@ -12,6 +15,9 @@ class ItemList:
         self.pathPhoto:str=os.path.join(dir,fileName)
         self.fileName:str=fileName
         self.description:str=description
+        self.__id:str=hashlib.md5(self.pathPhoto.encode("utf-8")).hexdigest()
+        
+    def populateDigitalImage(self):
         self.image = None
         try:
             self.image = self.getFileSystemImage(self.pathPhoto)

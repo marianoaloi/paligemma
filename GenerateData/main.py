@@ -12,7 +12,9 @@ import traceback
 from PIL import Image,ImageFile
 import numpy as np
 
-from flask.websocked import WebSocketPaligemma
+from webflask.websocked import WebSocketPaligemma
+
+# from flask.websocked import WebSocketPaligemma
 os.environ['QT_IMAGEIO_MAXALLOC'] = "0"
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -30,9 +32,8 @@ from mediamaloipackage.HelpComponent import HelpComponent
 
 from mediamaloipackage.ValidateFile import ValidateFile
 
-from entity.ItemList import ItemList,SizeMaxMozaic
+from entity.ItemList import ItemList,SizeMaxMozaic,FILE_DEFAULT
 
-FILE_DEFAULT="data.jsonl"
 
 class PlainTextEditDelegate(QStyledItemDelegate):
     def __init__(self, parent=None,saveMethod=None):
@@ -119,7 +120,8 @@ class GeneratePaligemmaData(QMainWindow):
                     
     async def websocket(self)    :
         
-        WebSocketPaligemma(self.images).main()
+        asyncio.run(WebSocketPaligemma(self.images).main(False))
+        # pass
     def openDirectory(self,progressBar=None):
         self.images={}
         
@@ -146,6 +148,7 @@ class GeneratePaligemmaData(QMainWindow):
                         obj=json.loads(line)
                         paths.add(obj["image"])
                         image = ItemList(self.directory,obj["image"],obj["suffix"])
+                        image.populateDigitalImage()
                         self.images[image.pathPhoto]=image
                         yield image
                         progressBar(int(index*bias))
@@ -164,6 +167,7 @@ class GeneratePaligemmaData(QMainWindow):
             for index, line in enumerate(lines):
                 
                     image = ItemList(os.path.dirname(line),os.path.basename(line),"")
+                    image.populateDigitalImage()
                     self.images[image.pathPhoto]=image
                     yield image
                     progressBar(int(index*bias))
@@ -208,16 +212,6 @@ class GeneratePaligemmaData(QMainWindow):
             table.setItem(row, 0, item)
             
             item = QTableWidgetItem(data.description)
-            # item.setWordWrap(True)
-            # textPlain=QPlainTextEdit("CACACACACACACACACA",table)
-            # textPlain.enterEvent = self.saveFileEvent
-            # textPlain.leaveEvent = self.saveFileEvent           
-            # textPlain.focusOutEvent = (self.saveFileEvent)
-            # textPlain.setStyleSheet("background-color:red")
-            
-            # textPlain.setSizePolicy(QSizePolicy.Policy.Expanding,QSizePolicy.Policy.Expanding)
-            # textPlain.setMinimumSize(300, 300)
-            # item.setData(Qt.DecorationRole,textPlain)
             setattr(item,"path",data.fileName)
             
             item.setSizeHint(QSize((SizeMaxMozaic + 10), SizeMaxMozaic + 10))
