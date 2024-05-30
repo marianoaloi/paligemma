@@ -1,0 +1,32 @@
+<html>
+    <head>
+
+        <title>WebSocket demo</title>
+        <link href="/static/web.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="resume">
+            <div class="caixa">Count<span id="count"/></div>
+            <div class="caixa">Total<span id="total"/></div>
+            <div class="caixa">Filled<span id="filled"/></div>
+            <div class="caixa">Empty<span id="empty"/></div>
+            <input type="text" id="filtert" title="Filter by text" onkeyup="filterByText(this)">
+        </div>
+        <input type="text" 
+        id="directory" 
+        name="directory" 
+        title="directory" 
+        value="/opt/maloi/ml/capacete/images_clean/"  /> <!--webkitdirectory-->
+        <button id="hiddenFilled">Hidden Filled</button>
+
+        <table id="images">
+            <tr>
+                <th id="magicImageSize">Image</th>
+                <th id="magicImageSize">Question</th>
+                <th>Description</th>
+            </tr>
+        </table>
+        <script src="/static/web.js"></script>
+    </body>
+</html> 
