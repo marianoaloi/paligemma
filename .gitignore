@@ -160,3 +160,6 @@ cython_debug/
 #.idea/
 big_vision/**
 big_vision_repo
+longcap100/**
+
+*.model

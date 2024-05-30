@@ -9,3 +9,5 @@ sentencepiece
 ml_collections
 jaxlib 
 flax
+ipykernel
+jax[cuda12_pip]
