@@ -58,8 +58,8 @@ const startPing = () => {
     setInterval(sendPing, 30000); // Ping every 30 seconds
 }
 
-const startreceiveMessages = () =>{
-    
+const startreceiveMessages = () => {
+
     websocket.onmessage = ({ data }) => {
         const event = JSON.parse(data);
         switch (event.type) {
@@ -67,11 +67,11 @@ const startreceiveMessages = () =>{
                 console.error(event.msg)
                 break;
             case 'image':
-                createImageBitmap(event.image,event.userId)
+                createImageBitmap(event.image, event.userId)
                 break;
             case 'images':
                 event.images.forEach(image => {
-                    createImageBitmap(image,undefined)
+                    createImageBitmap(image, undefined)
 
                 });
                 break;
@@ -126,7 +126,10 @@ window.addEventListener("DOMContentLoaded", () => {
             } else {
                 hiddeFilledStyle = ""
             }
-            Array.from(document.querySelectorAll('.description')).filter(txt => txt.value).map(txt => txt.parentElement.parentElement).forEach(txt => txt.style = hiddeFilledStyle)
+            Array.from(document.querySelectorAll('.description'))
+                .filter(txt => txt.value)
+                .map(txt => txt.parentElement.parentElement)
+                .forEach(txt => txt.style = hiddeFilledStyle)
         }
     )
 
@@ -143,18 +146,27 @@ window.addEventListener("DOMContentLoaded", () => {
 var id = undefined
 var table = undefined
 
-const createImageBitmap = (image,userId) => {
+const createImageBitmap = (image, userId) => {
     if (text = document.querySelector(`#x${image._ItemList__id}`)) {
         if (this.id != userId)
             text.value = image.description
+        document.querySelector(`#q${image._ItemList__id}`).value = image.question
 
     } else {
         tr = document.createElement('tr')
         tr.innerHTML = `
     
     <td><img src="/img/?path=${image.pathPhoto}" class="photo" title="${image.pathPhoto}"></td>
+    <td>
+    <textarea onkeyup="editText('${image._ItemList__id}')" 
+    onchange="callResume()"
+    path="${image.pathPhoto}" 
+    id="q${image._ItemList__id}" 
+    class="question"
+    >${image.question}</textarea>
+    </td>
     <td >
-    <textarea onkeyup="editText(this)" 
+    <textarea onkeyup="editText('${image._ItemList__id}')" 
     onchange="callResume()"
     path="${image.pathPhoto}" 
     id="x${image._ItemList__id}" 
@@ -164,14 +176,18 @@ const createImageBitmap = (image,userId) => {
     
     `
         table.appendChild(tr)
+        alltr.push(tr)
     }
     // console.log(image)
 }
 
-const editText = async (textAreaField) => {
+const editText = async (textAreaIdentification) => {
+    textAreaField = document.getElementById(`x${textAreaIdentification}`)
+    textAreaQuestion = document.getElementById(`q${textAreaIdentification}`)
     await websocket.send(JSON.stringify({
         action: 'write',
         image: textAreaField.getAttribute("path"),
+        question: textAreaQuestion.value,
         text: textAreaField.value
     }))
 }
@@ -187,4 +203,26 @@ const resume = async (event) => {
     document.querySelector('#total').innerText = event.total
     document.querySelector('#filled').innerText = event.filled
     document.querySelector('#empty').innerText = event.empty
+}
+const alltr = Array.from(document.querySelectorAll('tr:not(:has(th))'))
+const filterByText = (field) => {
+    textSearsh = field.value
+    if (textSearsh) {
+
+        withText = Array.from(document.querySelectorAll('textarea'))
+            .filter(x => x.value.toLowerCase().includes(textSearsh.toLowerCase()))
+            .map(x => x.parentElement.parentElement)
+    } else {
+        withText = []
+    }
+    // alltr.filter(x=>!withText.includes(x))
+
+    alltr.forEach(tr => {
+        if (!withText.includes(tr)) {
+            hiddeFilledStyle = "display:none"
+        } else {
+            hiddeFilledStyle = ""
+        }
+        tr.style = hiddeFilledStyle
+    })
 }

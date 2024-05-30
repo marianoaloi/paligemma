@@ -11,10 +11,11 @@ class ItemList:
     
     
     
-    def __init__(self,dir:str=None,fileName:str=None,description:str=None) -> None:
+    def __init__(self,dir:str=None,fileName:str=None,description:str=None,question:str = None) -> None:
         self.pathPhoto:str=os.path.join(dir,fileName)
         self.fileName:str=fileName
         self.description:str=description
+        self.question = question
         self.__id:str=hashlib.md5(self.pathPhoto.encode("utf-8")).hexdigest()
         
     def populateDigitalImage(self):

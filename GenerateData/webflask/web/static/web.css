@@ -30,7 +30,7 @@ img.photo {
     right: 2px;
 }
 
-textarea.description {
+textarea.description , textarea.question {
     height: 300px;
     width: 100%;
 }

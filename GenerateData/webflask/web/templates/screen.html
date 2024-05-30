@@ -11,6 +11,7 @@
             <div class="caixa">Total<span id="total"/></div>
             <div class="caixa">Filled<span id="filled"/></div>
             <div class="caixa">Empty<span id="empty"/></div>
+            <input type="text" id="filtert" title="Filter by text" onkeyup="filterByText(this)">
         </div>
         <input type="text" 
         id="directory" 
@@ -22,7 +23,7 @@
         <table id="images">
             <tr>
                 <th id="magicImageSize">Image</th>
-                <!-- <th id="magicImageSize">Question</th> -->
+                <th id="magicImageSize">Question</th>
                 <th>Description</th>
             </tr>
         </table>

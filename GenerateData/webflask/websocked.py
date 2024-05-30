@@ -33,16 +33,18 @@ class WebSocketPaligemma:
             raise Exception("Must put the text value")
         image=event["image"]
         text=event["text"]
+        question=event["question"]
         
         img=self.images.get(image)
         if(not img):
             raise Exception("The server not has this image. restart the service.")
         img.description=text
+        img.question=question
         broadcast(img)
         with open(os.path.join(self.directory,FILE_DEFAULT),'w') as fjsonl:
             items=[itemImage for itemImage in self.images.values() if itemImage.description]
             for line in items:
-                fjsonl.write(json.dumps({"prefix": "", "suffix": line.description,"image": line.fileName}))
+                fjsonl.write(json.dumps({"prefix": line.question, "suffix": line.description,"image": line.fileName}))
                 fjsonl.write("\n")
         # await self.resume()
         
@@ -62,7 +64,7 @@ class WebSocketPaligemma:
                         obj=json.loads(line)
                         if not obj["image"] in paths:
                             paths.add(obj["image"])
-                            image = ItemList(self.directory,obj["image"],obj["suffix"])
+                            image = ItemList(self.directory,obj["image"],obj["suffix"],obj["prefix"])
                             self.images[image.pathPhoto]=image
                             broadcast(image)
         
@@ -101,12 +103,17 @@ class WebSocketPaligemma:
                         await self.resume()
                     elif action == 'ping':
                         await websocket.send(json.dumps({"type":'pong'}))
+                    elif action == 'updatebase':
+                        self.images = {}                                        
+                        await self.readDirectory()
+                        await self.resume()
                     elif action == 'readdir':
                         if(not "directory" in event):
                             raise Exception("Choice a directory to read")
                         dir=event["directory"]
                         self.directory = dir                    
                         await self.readDirectory()
+                        await self.resume()
                     else :
                         raise Exception("No action choiced")
                 except Exception as e:
