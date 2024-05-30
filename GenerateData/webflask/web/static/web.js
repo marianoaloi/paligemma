@@ -10,6 +10,7 @@ let pingTimeoutId;
 var websocket = new WebSocket(wsurl);
 
 function sendPing() {
+
     websocket.send(JSON.stringify({ action: 'ping' })); // Replace with your custom ping message
 
     pingTimeoutId = setTimeout(() => {
@@ -29,6 +30,8 @@ function reconnect() {
                 if (websocket.readyState != 1) {
                     websocket = new WebSocket(wsurl); // Re-create the WebSocket
                 }
+
+                startreceiveMessages();
             } catch (error) {
                 console.error('Reconnect error:', error);
                 // Handle specific errors during reconnection (optional)
@@ -55,10 +58,40 @@ const startPing = () => {
     setInterval(sendPing, 30000); // Ping every 30 seconds
 }
 
-websocket.onmessage = (event) => {
-    console.log('Received message:', event.data);
-    // Handle incoming messages as usual
-};
+const startreceiveMessages = () =>{
+    
+    websocket.onmessage = ({ data }) => {
+        const event = JSON.parse(data);
+        switch (event.type) {
+            case 'error':
+                console.error(event.msg)
+                break;
+            case 'image':
+                createImageBitmap(event.image,event.userId)
+                break;
+            case 'images':
+                event.images.forEach(image => {
+                    createImageBitmap(image,undefined)
+
+                });
+                break;
+            case 'pong':
+                clearTimeout(pingTimeoutId);
+                break;
+            case 'resume':
+                resume(event);
+                break;
+            case 'id':
+                console.log(`Id: ${event.id}`)
+                id = event.id;
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
 
 websocket.onerror = (error) => {
     console.error('WebSocket error:', error);
@@ -98,35 +131,8 @@ window.addEventListener("DOMContentLoaded", () => {
     )
 
 
-    websocket.onmessage = ({ data }) => {
-        const event = JSON.parse(data);
-        switch (event.type) {
-            case 'error':
-                console.error(event.msg)
-                break;
-            case 'image':
-                createImageBitmap(event.image,event.userId)
-                break;
-            case 'images':
-                event.images.forEach(image => {
-                    createImageBitmap(image,undefined)
+    startreceiveMessages();
 
-                });
-                break;
-            case 'pong':
-                clearTimeout(pingTimeoutId);
-                break;
-            case 'resume':
-                resume(event);
-                break;
-            case 'id':
-                console.log(`Id: ${event.id}`)
-                id = event.id;
-                break;
-            default:
-                break;
-        }
-    }
     table = document.querySelector('#images')
 
 
