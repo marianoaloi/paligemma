@@ -1,13 +1,14 @@
 # google-colab
-jax
+jax[cuda12]
 numpy
 IPython
 Pillow
+ipykernel
 overrides
 einops~=0.7
 sentencepiece
 ml_collections
-jaxlib 
+kagglehub
 flax
-ipykernel
-jax[cuda12_pip]
+# jaxlib 
+# jax[cuda12_pip]
