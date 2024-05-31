@@ -11,7 +11,7 @@ class ItemList:
     
     
     
-    def __init__(self,dir:str=None,fileName:str=None,description:str=None,question:str = None) -> None:
+    def __init__(self,dir:str=None,fileName:str=None,description:str="",question:str = "") -> None:
         self.pathPhoto:str=os.path.join(dir,fileName)
         self.fileName:str=fileName
         self.description:str=description
