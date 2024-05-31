@@ -64,12 +64,12 @@ print(f"JAX devices:  {jax.device_count()}")
 
 import kagglehub
 
-MODEL_PATH = "./pt_224_128.params.f16.npz"
+MODEL_PATH = "./mix-448_128.params.f16.npz"
 if not os.path.exists(MODEL_PATH):
   print("Downloading the checkpoint from Kaggle, this could take a few minutes....")
   # Note: kaggle archive contains the same checkpoint in multiple formats.
   # Download only the float16 model.
-  MODEL_PATH = kagglehub.model_download('google/paligemma/jax/paligemma-3b-pt-224', 'paligemma-3b-pt-224.f16.npz')
+  MODEL_PATH = kagglehub.model_download('google/paligemma/jax/paligemma-3b-mix-448', 'paligemma-3b-mix-448.f16.npz')
   print(f"Model path: {MODEL_PATH}")
 
 TOKENIZER_PATH = "./paligemma_tokenizer.model"
@@ -145,7 +145,7 @@ def parameter_overview(params):
 print(" == Model params == ")
 parameter_overview(params)
 # %%
-def preprocess_image(image, size=224):
+def preprocess_image(image, size=448):
   # Model has been trained to handle images of different aspects ratios
   # resized to 224x224 in the range [-1, 1]. Bilinear and antialias resize
   # options are helpful to improve quality in some tasks.
