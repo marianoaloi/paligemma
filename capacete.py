@@ -5,6 +5,7 @@ import os
 # os.environ["KAGGLE_USERNAME"] = userdata.get('KAGGLE_USERNAME')
 # os.environ["KAGGLE_KEY"] = userdata.get('KAGGLE_KEY')
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0" 
 import sys
 
 
@@ -13,8 +14,8 @@ if "COLAB_TPU_ADDR" in os.environ:
 
 if not os.path.exists("big_vision_repo"):
     pass
-#   !git clone --quiet --branch=main --depth=1 \
-#      https://github.com/google-research/big_vision big_vision_repo
+  # !git clone --quiet --branch=main --depth=1 \
+  #    https://github.com/google-research/big_vision big_vision_repo
 
 if "big_vision_repo" not in sys.path:
   sys.path.append("big_vision_repo")
@@ -60,6 +61,7 @@ backend = jax.lib.xla_bridge.get_backend()
 print(f"JAX version:  {jax.__version__}")
 print(f"JAX platform: {backend.platform}")
 print(f"JAX devices:  {jax.device_count()}")
+print(f"JAX available devices:  {jax.devices()}")
 
 
 import kagglehub
